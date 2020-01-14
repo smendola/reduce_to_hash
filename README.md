@@ -64,7 +64,7 @@ as hash lookups rather than method calls.
 
 
 ## :key_prop
-As a further specialized case, if what you want is `:prop1 => :itself`
+As an even more specialized case, but one that is in fact fairly common, if what you want is `:prop1 => :itself`
 you can further abbreviate that to simply `:prop1`
 
 ### Example:
