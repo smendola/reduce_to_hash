@@ -14,6 +14,25 @@ successive element of the array, and each time it is expected to return a hash c
 User.all.to_a.reduce_to_hash { |u| { u.email => "#{u.first_name} #{u.last_name}" } }
 ```
 
+It is also possible for the mapping function to generate computed keys; they don't have to be keys extracted directly from the array elements.
+
+### Example
+```
+2.5.1 :007 > awesome_print (1..10).to_a.reduce_to_hash { |n| { n**n => n } }
+{
+              1 => 1,
+              4 => 2,
+             27 => 3,
+            256 => 4,
+           3125 => 5,
+          46656 => 6,
+         823543 => 7,
+       16777216 => 8,
+      387420489 => 9,
+    10000000000 => 10
+}
+```
+
 If the mapping function (block) returns nil, then that element is simply skipped. This is akin to combining
 a `.select` and `.reduce`.
 
@@ -35,15 +54,20 @@ end
 
 instead of the block above, you can use `:prop1 => :prop2`
 
-e.g.
+### Example:
 ```ruby
 User.all.to_a.reduce_to_hash :id => :email
 ```
 
+It's also possible to use this form on arrays of hashes, where in the symbols will be handled
+as hash lookups rather than method calls.
+
+
 ## :key_prop
 As a further specialized case, if what you want is `:prop1 => :itself`
 you can further abbreviate that to simply `:prop1`
-e.g.
+
+### Example:
 ```ruby
 User.all.to_a.reduce_to_hash :email
 ```
